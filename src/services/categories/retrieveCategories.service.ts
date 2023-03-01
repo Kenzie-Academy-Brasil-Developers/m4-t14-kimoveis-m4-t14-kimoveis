@@ -1,9 +1,9 @@
 import { AppDataSource } from "../../data-source";
-import { Categories } from "../../entities";
+import { Category } from "../../entities";
 import { tCategoriesSchemaRetrieve } from "../../schemas/categories.schema";
 
 export const retrieveCategoriesService = async () => {
-  const categoryRepo = AppDataSource.getRepository(Categories);
+  const categoryRepo = AppDataSource.getRepository(Category);
 
   const usersRepoResult = await categoryRepo.find({});
 
