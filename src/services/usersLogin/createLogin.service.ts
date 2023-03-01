@@ -15,7 +15,7 @@ export const createLoginService = async (
   });
 
   if (!userRepoResult || userRepoResult.deletedAt) {
-    throw new AppError("Wrong email/password!", 401);
+    throw new AppError("Invalid credentials", 401);
   }
 
   const pwdMatch: boolean = await compare(
@@ -24,7 +24,7 @@ export const createLoginService = async (
   );
 
   if (!pwdMatch) {
-    throw new AppError("Wrong email/password!", 401);
+    throw new AppError("Invalid credentials", 401);
   }
 
   const token: string = sign(

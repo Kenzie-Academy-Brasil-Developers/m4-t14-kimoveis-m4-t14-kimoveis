@@ -17,7 +17,7 @@ class RealEstate {
   id: number;
 
   @Column("boolean", { nullable: true, default: true })
-  sold?: boolean | null | undefined = false;
+  sold: boolean = false;
 
   @Column({ type: "decimal", precision: 12, scale: 2, default: 0 })
   value: number | string;
@@ -25,16 +25,16 @@ class RealEstate {
   @Column({ type: "int", default: 0 })
   size: number = 0;
 
-  @CreateDateColumn()
-  createdAt: Date;
+  @CreateDateColumn({ type: "date" })
+  createdAt: string;
 
-  @UpdateDateColumn()
-  updatedAt: Date;
+  @UpdateDateColumn({ type: "date" })
+  updatedAt: string;
 
   @ManyToOne(() => Category, {
     nullable: true,
   })
-  category: Category;
+  category: Category | undefined | null;
 
   @OneToOne(() => Address)
   @JoinColumn()
