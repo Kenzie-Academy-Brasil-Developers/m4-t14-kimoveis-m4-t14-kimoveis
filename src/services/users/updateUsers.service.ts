@@ -21,11 +21,11 @@ export const updateUserService = async (
       id: Number(userInfo.params),
     });
 
-    const updateUsers = { ...userData, ...payload };
+    const updateUsers = userRepo.create({ ...userData, ...payload });
 
-    const newUser = await userRepo.save(updateUsers);
+    await userRepo.save(updateUsers);
 
-    const returnUser = usersCreateResult.parse(newUser);
+    const returnUser = usersCreateResult.parse(updateUsers);
 
     return returnUser;
   } else {

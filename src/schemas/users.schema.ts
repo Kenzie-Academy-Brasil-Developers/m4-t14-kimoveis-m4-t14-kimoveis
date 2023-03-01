@@ -12,9 +12,9 @@ export const usersSchema = z.object({
     .max(120)
     .min(4)
     .transform((pass) => hashSync(pass, 10)),
-  createdAt: z.date(),
-  updatedAt: z.date(),
-  deletedAt: z.date().nullable(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
+  deletedAt: z.string().nullable(),
 });
 
 export type tUserSchema = z.infer<typeof usersSchema>;
