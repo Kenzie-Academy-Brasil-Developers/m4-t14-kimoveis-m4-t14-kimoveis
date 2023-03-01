@@ -10,7 +10,7 @@ export const usersSchema = z.object({
     .string()
     .trim()
     .max(120)
-    .min(6)
+    .min(4)
     .transform((pass) => hashSync(pass, 10)),
   createdAt: z.date(),
   updatedAt: z.date(),

@@ -20,7 +20,7 @@ class RealEstate {
   sold?: boolean | null | undefined = false;
 
   @Column({ type: "decimal", precision: 12, scale: 2, default: 0 })
-  value: number;
+  value: number | string;
 
   @Column({ type: "int", default: 0 })
   size: number = 0;

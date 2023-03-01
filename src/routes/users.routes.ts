@@ -41,5 +41,6 @@ usersRoutes.delete(
   "/users/:id",
   veridyIdExistsMiddlewares,
   tokenValidationMiddleware,
+  adminValidMiddleware,
   deletedUsersController
 );

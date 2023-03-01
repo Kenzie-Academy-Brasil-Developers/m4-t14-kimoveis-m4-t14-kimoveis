@@ -3,7 +3,7 @@ import { User } from "./users.entities";
 import { RealEstate } from "./realState.entities";
 
 @Entity("schedules_users_properties")
-class Schedules {
+class Schedule {
   @PrimaryGeneratedColumn("increment")
   id: number;
 
@@ -20,4 +20,4 @@ class Schedules {
   realEstate: RealEstate;
 }
 
-export { Schedules };
+export { Schedule };
