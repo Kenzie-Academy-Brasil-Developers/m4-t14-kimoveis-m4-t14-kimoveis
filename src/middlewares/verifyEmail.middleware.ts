@@ -17,7 +17,7 @@ export const verifyCreatedEmail = async (
     });
 
     if (userRepoResult) {
-      throw new AppError("Email already exists.", 409);
+      throw new AppError("Email already exists", 409);
     }
   }
 

@@ -10,7 +10,7 @@ export const tokenValidationMiddleware = async (
   const authToken: string | undefined = req.headers.authorization;
 
   if (!authToken) {
-    throw new AppError("Missing authorization token", 401);
+    throw new AppError("Missing bearer token", 401);
   }
 
   const token = authToken.split(" ")[1];

@@ -29,6 +29,6 @@ export const updateUserService = async (
 
     return returnUser;
   } else {
-    throw new AppError("Insufficient Permission", 403);
+    throw new AppError("Insufficient permission", 403);
   }
 };
