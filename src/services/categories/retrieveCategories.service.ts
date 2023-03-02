@@ -5,7 +5,7 @@ import { tCategoriesSchemaRetrieve } from "../../schemas/categories.schema";
 export const retrieveCategoriesService = async () => {
   const categoryRepo = AppDataSource.getRepository(Category);
 
-  const usersRepoResult = await categoryRepo.find({});
+  const categoryRepoResult = await categoryRepo.find({});
 
-  return usersRepoResult as unknown as tCategoriesSchemaRetrieve;
+  return categoryRepoResult as unknown as tCategoriesSchemaRetrieve;
 };

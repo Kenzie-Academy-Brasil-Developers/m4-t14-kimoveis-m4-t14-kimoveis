@@ -15,7 +15,5 @@ export const retrieveUsersService =
 
     const returnUser = usersRetrieveResult.parse(usersRepoResult);
 
-    console.log(returnUser);
-
     return returnUser;
   };

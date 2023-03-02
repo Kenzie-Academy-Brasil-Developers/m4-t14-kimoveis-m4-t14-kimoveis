@@ -7,9 +7,11 @@ import {
   ManyToOne,
   OneToOne,
   JoinColumn,
+  OneToMany,
 } from "typeorm";
 import { Category } from "./categories.entities";
 import { Address } from "./address.entities";
+import { Schedule } from "./schedules.entities";
 
 @Entity("real_estate")
 class RealEstate {
@@ -17,7 +19,7 @@ class RealEstate {
   id: number;
 
   @Column("boolean", { nullable: true, default: true })
-  sold?: boolean | null | undefined = false;
+  sold: boolean = false;
 
   @Column({ type: "decimal", precision: 12, scale: 2, default: 0 })
   value: number | string;
@@ -25,20 +27,23 @@ class RealEstate {
   @Column({ type: "int", default: 0 })
   size: number = 0;
 
-  @CreateDateColumn()
-  createdAt: Date;
+  @CreateDateColumn({ type: "date" })
+  createdAt: string;
 
-  @UpdateDateColumn()
-  updatedAt: Date;
+  @UpdateDateColumn({ type: "date" })
+  updatedAt: string;
 
-  @ManyToOne(() => Category, {
+  @ManyToOne(() => Category, (category) => category.realEstate, {
     nullable: true,
   })
-  category: Category;
+  category: Category | undefined | null;
 
   @OneToOne(() => Address)
   @JoinColumn()
   address: Address;
+
+  @OneToMany(() => Schedule, (schedule) => schedule.realEstate)
+  schedules: Schedule[];
 }
 
 export { RealEstate };
