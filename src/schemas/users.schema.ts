@@ -49,3 +49,12 @@ export const usersUpdateSchema = usersSchema
     deletedAt: true,
   })
   .partial();
+
+export const userSchedulesSchema = usersSchema.omit({
+  name: true,
+  createdAt: true,
+  deletedAt: true,
+  email: true,
+  password: true,
+  updatedAt: true,
+});

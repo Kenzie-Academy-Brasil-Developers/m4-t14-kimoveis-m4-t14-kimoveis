@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   createCategoriesController,
   retrieveCategoriesController,
+  retrieveCategoriesRealEstateControllers,
 } from "../controllers/categories/categories.controllers";
 import { adminValidMiddleware } from "../middlewares/validAdmin.middlewares";
 import { tokenValidationMiddleware } from "../middlewares/validToken.middlwares";
@@ -22,4 +23,7 @@ categoriesRoutes.post(
 
 categoriesRoutes.get("/categories", retrieveCategoriesController);
 
-categoriesRoutes.get("/categories/:id/realEstate");
+categoriesRoutes.get(
+  "/categories/:id/realEstate",
+  retrieveCategoriesRealEstateControllers
+);

@@ -7,9 +7,11 @@ import {
   ManyToOne,
   OneToOne,
   JoinColumn,
+  OneToMany,
 } from "typeorm";
 import { Category } from "./categories.entities";
 import { Address } from "./address.entities";
+import { Schedule } from "./schedules.entities";
 
 @Entity("real_estate")
 class RealEstate {
@@ -31,7 +33,7 @@ class RealEstate {
   @UpdateDateColumn({ type: "date" })
   updatedAt: string;
 
-  @ManyToOne(() => Category, {
+  @ManyToOne(() => Category, (category) => category.realEstate, {
     nullable: true,
   })
   category: Category | undefined | null;
@@ -39,6 +41,9 @@ class RealEstate {
   @OneToOne(() => Address)
   @JoinColumn()
   address: Address;
+
+  @OneToMany(() => Schedule, (schedule) => schedule.realEstate)
+  schedules: Schedule[];
 }
 
 export { RealEstate };

@@ -58,7 +58,6 @@ export const createRealEstateService = async (
     const estate = realEstateRepo.create({
       ...newEstate,
       address: { ...createAddress },
-      category: category,
     });
     const createdRealEstate = await realEstateRepo.save(estate);
 

@@ -5,6 +5,7 @@ import {
 } from "../../schemas/categories.schema";
 import { createCategoriesService } from "../../services/categories/createCategories.service";
 import { retrieveCategoriesService } from "../../services/categories/retrieveCategories.service";
+import { retrieveCategoriesRealEstateService } from "../../services/categories/retrieveCategoriesEstate.service";
 
 export const createCategoriesController = async (
   req: Request,
@@ -26,7 +27,11 @@ export const retrieveCategoriesController = async (
   return res.status(200).json(category);
 };
 
-export const retrieveCategoriesRealEstate = async (
+export const retrieveCategoriesRealEstateControllers = async (
   req: Request,
   res: Response
-) => {};
+) => {
+  const categoryRealEstate = await retrieveCategoriesRealEstateService(req);
+
+  return res.status(200).json(categoryRealEstate);
+};

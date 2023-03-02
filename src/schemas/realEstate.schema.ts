@@ -1,6 +1,5 @@
 import { z } from "zod";
 import { addressSchemaCreate } from "./address.schema";
-import { categoriesCreateSchema } from "./categories.schema";
 
 export const realEstateSchema = z.object({
   id: z.number().positive().int(),
