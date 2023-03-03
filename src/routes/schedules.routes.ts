@@ -7,6 +7,7 @@ import {
   retrieveSchedulesControllers,
 } from "../controllers/schedules/schedules.controllers";
 import { adminValidMiddleware } from "../middlewares/validAdmin.middlewares";
+import { validSchedulesMiddlewares } from "../middlewares/validSchedules.middlewares";
 
 export const schedulesRoutes: Router = Router();
 
@@ -14,6 +15,7 @@ schedulesRoutes.post(
   "/schedules",
   tokenValidationMiddleware,
   validBodyMiddleware(createSchedulesSchema),
+  validSchedulesMiddlewares,
   createSchedulesControllers
 );
 
