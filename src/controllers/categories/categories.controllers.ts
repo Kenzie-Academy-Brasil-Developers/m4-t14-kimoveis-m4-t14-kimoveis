@@ -6,6 +6,7 @@ import {
 import { createCategoriesService } from "../../services/categories/createCategories.service";
 import { retrieveCategoriesService } from "../../services/categories/retrieveCategories.service";
 import { retrieveCategoriesRealEstateService } from "../../services/categories/retrieveCategoriesEstate.service";
+import { Category } from "../../entities";
 
 export const createCategoriesController = async (
   req: Request,
@@ -13,7 +14,7 @@ export const createCategoriesController = async (
 ) => {
   const categoryInfo: tCategoriesSchemaCreate = req.body;
 
-  const category = await createCategoriesService(categoryInfo);
+  const category: Category = await createCategoriesService(categoryInfo);
 
   return res.status(201).json(category);
 };
@@ -31,7 +32,8 @@ export const retrieveCategoriesRealEstateControllers = async (
   req: Request,
   res: Response
 ) => {
-  const categoryRealEstate = await retrieveCategoriesRealEstateService(req);
+  const categoryRealEstate: Category =
+    await retrieveCategoriesRealEstateService(req);
 
   return res.status(200).json(categoryRealEstate);
 };

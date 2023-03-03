@@ -6,7 +6,7 @@ import { AppError } from "../../errors/erros";
 export const retrieveSchedulesService = async (req: Request) => {
   const realEstate = AppDataSource.getRepository(RealEstate);
 
-  const realEstateResult = await realEstate.findOne({
+  const realEstateResult: RealEstate | null = await realEstate.findOne({
     where: {
       id: Number(req.params.id),
     },

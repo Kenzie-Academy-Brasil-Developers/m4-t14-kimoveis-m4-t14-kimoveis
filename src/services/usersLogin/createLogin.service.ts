@@ -4,13 +4,14 @@ import { User } from "../../entities";
 import { AppError } from "../../errors/erros";
 import { sign } from "jsonwebtoken";
 import { tUserLoginSchema } from "../../schemas/usersLogin.schema";
+import { Repository } from "typeorm";
 
 export const createLoginService = async (
   payload: tUserLoginSchema
 ): Promise<any> => {
-  const userRepo = AppDataSource.getRepository(User);
+  const userRepo: Repository<User> = AppDataSource.getRepository(User);
 
-  const userRepoResult = await userRepo.findOneBy({
+  const userRepoResult: User | null = await userRepo.findOneBy({
     email: payload.email,
   });
 
