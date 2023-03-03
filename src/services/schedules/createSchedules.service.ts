@@ -1,17 +1,21 @@
+import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
 import { RealEstate, Schedule, User } from "../../entities";
 import { AppError } from "../../errors/erros";
+import { iSchedulesCreateResult } from "../../interfaces/schedules.types";
 import { tSchedulesSchemaCreate } from "../../schemas/schedules.schema";
 
 export const createSchedulesService = async (
   schedulesInfo: tSchedulesSchemaCreate,
   idUser: string
-): Promise<{ message: string }> => {
-  const schedulesRepo = AppDataSource.getRepository(Schedule);
-  const userRepo = AppDataSource.getRepository(User);
-  const realEstate = AppDataSource.getRepository(RealEstate);
+): Promise<iSchedulesCreateResult> => {
+  const schedulesRepo: Repository<Schedule> =
+    AppDataSource.getRepository(Schedule);
+  const userRepo: Repository<User> = AppDataSource.getRepository(User);
+  const realEstate: Repository<RealEstate> =
+    AppDataSource.getRepository(RealEstate);
 
-  const schedulesBuilderHour = await schedulesRepo
+  const schedulesBuilderHour: Schedule | null = await schedulesRepo
     .createQueryBuilder("schedules_users_properties")
     .where("schedules_users_properties.date = :date", {
       date: schedulesInfo.date,
@@ -31,7 +35,7 @@ export const createSchedulesService = async (
     );
   }
 
-  const schedulesBuilderUser = await schedulesRepo
+  const schedulesBuilderUser: Schedule | null = await schedulesRepo
     .createQueryBuilder("schedules_users_properties")
     .where("schedules_users_properties.date = :date", {
       date: schedulesInfo.date,
@@ -49,7 +53,7 @@ export const createSchedulesService = async (
     );
   }
 
-  const userRepoResult = await userRepo.findOneBy({
+  const userRepoResult: User | null = await userRepo.findOneBy({
     id: Number(idUser),
   });
   if (!userRepoResult) {
@@ -61,8 +65,8 @@ export const createSchedulesService = async (
     throw new AppError("Invalid hour, available times are 8AM to 18PM", 400);
   }
 
-  const diaUtil = new Date(schedulesInfo.date);
-  const day = diaUtil.getDay();
+  const diaUtil: Date = new Date(schedulesInfo.date);
+  const day: number = diaUtil.getDay();
   diaUtil.getHours();
   if (day === 0 || day === 6) {
     throw new AppError("Invalid date, work days are monday to friday", 400);
@@ -80,7 +84,7 @@ export const createSchedulesService = async (
     }
   }
 
-  const schedulesRepoCreate = schedulesRepo.create({
+  const schedulesRepoCreate: Schedule = schedulesRepo.create({
     ...schedulesInfo,
     realEstate: realEstateResult!,
     user: userRepoResult!,

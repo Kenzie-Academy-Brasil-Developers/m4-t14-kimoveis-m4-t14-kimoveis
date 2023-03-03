@@ -1,20 +1,24 @@
+import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
 import { Address, Category, RealEstate } from "../../entities";
 import { AppError } from "../../errors/erros";
 import {
   realEstateCreateResultSchema,
   tRealEstateSchemaCreate,
+  tRealEstateSchemaNewEstate,
 } from "../../schemas/realEstate.schema";
 
 export const createRealEstateService = async (
   estateInfo: tRealEstateSchemaCreate
 ): Promise<RealEstate> => {
-  const realEstateRepo = AppDataSource.getRepository(RealEstate);
-  const addressRepo = AppDataSource.getRepository(Address);
-  const categoryRepo = AppDataSource.getRepository(Category);
+  const realEstateRepo: Repository<RealEstate> =
+    AppDataSource.getRepository(RealEstate);
+  const addressRepo: Repository<Address> = AppDataSource.getRepository(Address);
+  const categoryRepo: Repository<Category> =
+    AppDataSource.getRepository(Category);
 
   if (estateInfo.address.number) {
-    const validdAddress = await addressRepo.findOneBy({
+    const validdAddress: Address | null = await addressRepo.findOneBy({
       city: estateInfo.address.city,
       number: estateInfo.address.number,
       state: estateInfo.address.state,
@@ -39,27 +43,28 @@ export const createRealEstateService = async (
     }
   }
 
-  const address = addressRepo.create(estateInfo.address);
-  const createAddress = await addressRepo.save(address);
+  const address: Address = addressRepo.create(estateInfo.address);
+  const createAddress: Address = await addressRepo.save(address);
 
-  const newEstate = realEstateCreateResultSchema.parse(estateInfo);
+  const newEstate: tRealEstateSchemaNewEstate =
+    realEstateCreateResultSchema.parse(estateInfo);
 
   if (category) {
-    const estate = realEstateRepo.create({
+    const estate: RealEstate = realEstateRepo.create({
       ...newEstate,
       address: { ...createAddress },
       category: category,
     });
 
-    const createdRealEstate = await realEstateRepo.save(estate);
+    const createdRealEstate: RealEstate = await realEstateRepo.save(estate);
 
     return createdRealEstate;
   } else {
-    const estate = realEstateRepo.create({
+    const estate: RealEstate = realEstateRepo.create({
       ...newEstate,
       address: { ...createAddress },
     });
-    const createdRealEstate = await realEstateRepo.save(estate);
+    const createdRealEstate: RealEstate = await realEstateRepo.save(estate);
 
     return createdRealEstate;
   }

@@ -35,3 +35,8 @@ export type tRealEstateSchemaCreate = Omit<
   tRealEstateSchema,
   "id" | "sold" | "createdAt" | "updatedAt"
 >;
+
+export type tRealEstateSchemaNewEstate = Omit<
+  tRealEstateSchema,
+  "id" | "address" | "categoryId" | "createdAt" | "updatedAt" | "sold"
+>;

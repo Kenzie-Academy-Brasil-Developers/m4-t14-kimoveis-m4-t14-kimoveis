@@ -2,17 +2,18 @@ import { NextFunction, Request, Response } from "express";
 import { AppDataSource } from "../data-source";
 import { User } from "../entities";
 import { AppError } from "../errors/erros";
+import { Repository } from "typeorm";
 
 export const verifyCreatedEmail = async (
   req: Request,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  const emailUser = req.body.email;
-  const userRepo = AppDataSource.getRepository(User);
+  const emailUser: string = req.body.email;
+  const userRepo: Repository<User> = AppDataSource.getRepository(User);
 
   if (emailUser) {
-    const userRepoResult = await userRepo.findOneBy({
+    const userRepoResult: User | null = await userRepo.findOneBy({
       email: emailUser,
     });
 

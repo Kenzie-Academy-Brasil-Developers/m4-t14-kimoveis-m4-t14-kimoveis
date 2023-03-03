@@ -1,3 +1,4 @@
+import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
 import { User } from "../../entities";
 import { AppError } from "../../errors/erros";
@@ -15,17 +16,18 @@ export const updateUserService = async (
     userInfo.admin === true ||
     Number(userInfo.id) === Number(userInfo.params)
   ) {
-    const userRepo = AppDataSource.getRepository(User);
+    const userRepo: Repository<User> = AppDataSource.getRepository(User);
 
-    const userData = await userRepo.findOneBy({
+    const userData: User | null = await userRepo.findOneBy({
       id: Number(userInfo.params),
     });
 
-    const updateUsers = userRepo.create({ ...userData, ...payload });
+    const updateUsers: User = userRepo.create({ ...userData, ...payload });
 
     await userRepo.save(updateUsers);
 
-    const returnUser = usersCreateResult.parse(updateUsers);
+    const returnUser: tUserSchemaCreateResult =
+      usersCreateResult.parse(updateUsers);
 
     return returnUser;
   } else {

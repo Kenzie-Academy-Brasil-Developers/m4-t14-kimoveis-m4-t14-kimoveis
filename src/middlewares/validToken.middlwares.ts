@@ -6,7 +6,7 @@ export const tokenValidationMiddleware = async (
   req: Request,
   res: Response,
   next: NextFunction
-): Promise<void | Response<any, Record<string, any>>> => {
+): Promise<void> => {
   const authToken: string | undefined = req.headers.authorization;
 
   if (!authToken) {
