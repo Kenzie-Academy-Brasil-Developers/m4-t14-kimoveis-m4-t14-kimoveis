@@ -1,14 +1,11 @@
-import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
 import { User } from "../../entities";
-import {
-  tUserSchemaRetriveResult,
-  usersRetrieveResult,
-} from "../../schemas/users.schema";
+import { tUserSchemaRetriveResult } from "../../interfaces/users.types";
+import { usersRetrieveResult } from "../../schemas/users.schema";
 
 export const retrieveUsersService =
   async (): Promise<tUserSchemaRetriveResult> => {
-    const usersRepo: Repository<User> = AppDataSource.getRepository(User);
+    const usersRepo = AppDataSource.getRepository(User);
 
     const usersRepoResult: User[] = await usersRepo.find({
       withDeleted: true,

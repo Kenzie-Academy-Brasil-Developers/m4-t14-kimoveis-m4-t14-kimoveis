@@ -8,10 +8,6 @@ export const schedulesSchema = z.object({
   userId: z.number().int().positive(),
 });
 
-export type tSchedulesSchema = z.infer<typeof schedulesSchema>;
-
-export type tSchedulesSchemaCreate = Omit<tSchedulesSchema, "id" | "userId">;
-
 export const createSchedulesSchema = schedulesSchema.omit({
   id: true,
   userId: true,

@@ -1,29 +1,27 @@
-import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
 import { Address, Category, RealEstate } from "../../entities";
 import { AppError } from "../../errors/erros";
 import {
-  realEstateCreateResultSchema,
   tRealEstateSchemaCreate,
   tRealEstateSchemaNewEstate,
-} from "../../schemas/realEstate.schema";
+} from "../../interfaces/realEstate.types";
+import { realEstateCreateResultSchema } from "../../schemas/realEstate.schema";
 
 export const createRealEstateService = async (
   estateInfo: tRealEstateSchemaCreate
 ): Promise<RealEstate> => {
-  const realEstateRepo: Repository<RealEstate> =
-    AppDataSource.getRepository(RealEstate);
-  const addressRepo: Repository<Address> = AppDataSource.getRepository(Address);
-  const categoryRepo: Repository<Category> =
-    AppDataSource.getRepository(Category);
+  const realEstateRepo = AppDataSource.getRepository(RealEstate);
+  const addressRepo = AppDataSource.getRepository(Address);
+  const categoryRepo = AppDataSource.getRepository(Category);
+  const { number, city, state, street, zipCode } = estateInfo.address;
 
-  if (estateInfo.address.number) {
+  if (number) {
     const validdAddress: Address | null = await addressRepo.findOneBy({
-      city: estateInfo.address.city,
-      number: estateInfo.address.number,
-      state: estateInfo.address.state,
-      street: estateInfo.address.street,
-      zipCode: estateInfo.address.zipCode,
+      city: city,
+      number: number,
+      state: state,
+      street: street,
+      zipCode: zipCode,
     });
 
     if (validdAddress) {

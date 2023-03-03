@@ -1,12 +1,12 @@
-import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
 import { User } from "../../entities";
 import { AppError } from "../../errors/erros";
-import { iUserUpdateBody, iUserUpdateInfo } from "../../interfaces/users.types";
 import {
+  iUserUpdateBody,
+  iUserUpdateInfo,
   tUserSchemaCreateResult,
-  usersCreateResult,
-} from "../../schemas/users.schema";
+} from "../../interfaces/users.types";
+import { usersCreateResult } from "../../schemas/users.schema";
 
 export const updateUserService = async (
   payload: iUserUpdateBody,
@@ -16,7 +16,7 @@ export const updateUserService = async (
     userInfo.admin === true ||
     Number(userInfo.id) === Number(userInfo.params)
   ) {
-    const userRepo: Repository<User> = AppDataSource.getRepository(User);
+    const userRepo = AppDataSource.getRepository(User);
 
     const userData: User | null = await userRepo.findOneBy({
       id: Number(userInfo.params),

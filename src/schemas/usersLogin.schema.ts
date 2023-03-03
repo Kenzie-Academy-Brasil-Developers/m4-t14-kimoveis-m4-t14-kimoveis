@@ -5,6 +5,4 @@ export const usersSchema = z.object({
   password: z.string().trim().max(120).min(4),
 });
 
-export type tUserLoginSchema = z.infer<typeof usersSchema>;
-
 export const usersLoginSchema = usersSchema;

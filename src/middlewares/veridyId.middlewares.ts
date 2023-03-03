@@ -10,7 +10,7 @@ export const veridyIdExistsMiddlewares = async (
   next: NextFunction
 ): Promise<void> => {
   const params: string = req.params?.id;
-  const userRepo: Repository<User> = AppDataSource.getRepository(User);
+  const userRepo = AppDataSource.getRepository(User);
 
   const userRepoResult: User | null = await userRepo.findOneBy({
     id: Number(params),

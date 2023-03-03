@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
-import {
-  tCategoriesSchemaCreate,
-  tCategoriesSchemaRetrieve,
-} from "../../schemas/categories.schema";
 import { createCategoriesService } from "../../services/categories/createCategories.service";
 import { retrieveCategoriesService } from "../../services/categories/retrieveCategories.service";
 import { retrieveCategoriesRealEstateService } from "../../services/categories/retrieveCategoriesEstate.service";
 import { Category } from "../../entities";
+import {
+  tCategoriesSchemaCreate,
+  tCategoriesSchemaRetrieve,
+} from "../../interfaces/categories.types";
 
 export const createCategoriesController = async (
   req: Request,

@@ -1,9 +1,8 @@
 import { NextFunction, Request, Response } from "express";
-import { tSchedulesSchemaCreate } from "../schemas/schedules.schema";
-import { Repository } from "typeorm";
 import { Schedule } from "../entities";
 import { AppDataSource } from "../data-source";
 import { AppError } from "../errors/erros";
+import { tSchedulesSchemaCreate } from "../interfaces/schedules.types";
 
 export const validSchedulesMiddlewares = async (
   req: Request,
@@ -13,8 +12,7 @@ export const validSchedulesMiddlewares = async (
   const schedulesInfo: tSchedulesSchemaCreate = req.body;
   const idUser: string = req.jwtIdUser;
 
-  const schedulesRepo: Repository<Schedule> =
-    AppDataSource.getRepository(Schedule);
+  const schedulesRepo = AppDataSource.getRepository(Schedule);
 
   const schedulesBuilderHour: Schedule | null = await schedulesRepo
     .createQueryBuilder("schedules_users_properties")
@@ -68,7 +66,7 @@ export const validSchedulesMiddlewares = async (
     throw new AppError("User schedule to this real estate already exists", 409);
   }
 
-  const [hourString, minute] = schedulesInfo.hour.split(":");
+  const [hourString] = schedulesInfo.hour.split(":");
   if (Number(hourString) < 8 || Number(hourString) > 18) {
     throw new AppError("Invalid hour, available times are 8AM to 18PM", 400);
   }

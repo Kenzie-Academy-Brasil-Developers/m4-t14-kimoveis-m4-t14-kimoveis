@@ -1,19 +1,18 @@
-import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
 import { RealEstate, Schedule, User } from "../../entities";
 import { AppError } from "../../errors/erros";
-import { iSchedulesCreateResult } from "../../interfaces/schedules.types";
-import { tSchedulesSchemaCreate } from "../../schemas/schedules.schema";
+import {
+  iSchedulesCreateResult,
+  tSchedulesSchemaCreate,
+} from "../../interfaces/schedules.types";
 
 export const createSchedulesService = async (
   schedulesInfo: tSchedulesSchemaCreate,
   idUser: string
 ): Promise<iSchedulesCreateResult> => {
-  const schedulesRepo: Repository<Schedule> =
-    AppDataSource.getRepository(Schedule);
-  const userRepo: Repository<User> = AppDataSource.getRepository(User);
-  const realEstate: Repository<RealEstate> =
-    AppDataSource.getRepository(RealEstate);
+  const schedulesRepo = AppDataSource.getRepository(Schedule);
+  const userRepo = AppDataSource.getRepository(User);
+  const realEstate = AppDataSource.getRepository(RealEstate);
 
   const userRepoResult: User | null = await userRepo.findOneBy({
     id: Number(idUser),

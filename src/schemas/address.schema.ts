@@ -9,10 +9,6 @@ export const addressSchema = z.object({
   state: z.string().trim().max(2),
 });
 
-export type tAddressSchema = z.infer<typeof addressSchema>;
-
-export type tAddressCreateSchema = Omit<tAddressSchema, "id">;
-
 export const addressSchemaCreate = addressSchema.omit({
   id: true,
 });

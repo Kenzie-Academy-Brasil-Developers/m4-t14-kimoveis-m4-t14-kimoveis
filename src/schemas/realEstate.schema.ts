@@ -28,15 +28,3 @@ export const realEstateCreateResultSchema = realEstateSchema.omit({
   sold: true,
   updatedAt: true,
 });
-
-export type tRealEstateSchema = z.infer<typeof realEstateSchemaResult>;
-
-export type tRealEstateSchemaCreate = Omit<
-  tRealEstateSchema,
-  "id" | "sold" | "createdAt" | "updatedAt"
->;
-
-export type tRealEstateSchemaNewEstate = Omit<
-  tRealEstateSchema,
-  "id" | "address" | "categoryId" | "createdAt" | "updatedAt" | "sold"
->;
