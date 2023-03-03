@@ -1,8 +1,10 @@
 import { Request, Response } from "express";
-import { tSchedulesSchemaCreate } from "../../schemas/schedules.schema";
 import { createSchedulesService } from "../../services/schedules/createSchedules.service";
 import { retrieveSchedulesService } from "../../services/schedules/retrieveSchedules.service";
-import { iSchedulesCreateResult } from "../../interfaces/schedules.types";
+import {
+  iSchedulesCreateResult,
+  tSchedulesSchemaCreate,
+} from "../../interfaces/schedules.types";
 import { RealEstate } from "../../entities";
 
 export const createSchedulesControllers = async (

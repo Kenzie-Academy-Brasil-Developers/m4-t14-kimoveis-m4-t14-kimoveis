@@ -2,11 +2,9 @@ import { Request } from "express";
 import { AppDataSource } from "../../data-source";
 import { Category } from "../../entities";
 import { AppError } from "../../errors/erros";
-import { Repository } from "typeorm";
 
 export const retrieveCategoriesRealEstateService = async (req: Request) => {
-  const categoryRepo: Repository<Category> =
-    AppDataSource.getRepository(Category);
+  const categoryRepo = AppDataSource.getRepository(Category);
 
   const categoryRepoResult: Category | null = await categoryRepo.findOne({
     where: {

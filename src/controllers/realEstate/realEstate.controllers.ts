@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { tRealEstateSchemaCreate } from "../../schemas/realEstate.schema";
 import { createRealEstateService } from "../../services/realEstate/createRealEstate.service";
 import { retrieveRealEstateService } from "../../services/realEstate/retrieveRealEstate.service";
 import { RealEstate } from "../../entities";
+import { tRealEstateSchemaCreate } from "../../interfaces/realEstate.types";
 
 export const createRealEstateControllers = async (
   req: Request,

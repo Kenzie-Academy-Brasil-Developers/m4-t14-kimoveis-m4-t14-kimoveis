@@ -10,7 +10,7 @@ export const verifyCreatedEmail = async (
   next: NextFunction
 ): Promise<void> => {
   const emailUser: string = req.body.email;
-  const userRepo: Repository<User> = AppDataSource.getRepository(User);
+  const userRepo = AppDataSource.getRepository(User);
 
   if (emailUser) {
     const userRepoResult: User | null = await userRepo.findOneBy({

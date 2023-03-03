@@ -10,8 +10,7 @@ export const verifyCreatedName = async (
   next: NextFunction
 ): Promise<void> => {
   const name: string = req.body.name;
-  const categoryRepo: Repository<Category> =
-    AppDataSource.getRepository(Category);
+  const categoryRepo = AppDataSource.getRepository(Category);
 
   if (name) {
     const categoryRepoResult: Category | null = await categoryRepo.findOneBy({

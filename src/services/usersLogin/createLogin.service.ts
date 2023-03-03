@@ -3,13 +3,12 @@ import { AppDataSource } from "../../data-source";
 import { User } from "../../entities";
 import { AppError } from "../../errors/erros";
 import { sign } from "jsonwebtoken";
-import { tUserLoginSchema } from "../../schemas/usersLogin.schema";
-import { Repository } from "typeorm";
+import { tUserLoginSchema } from "../../interfaces/users.types";
 
 export const createLoginService = async (
   payload: tUserLoginSchema
 ): Promise<any> => {
-  const userRepo: Repository<User> = AppDataSource.getRepository(User);
+  const userRepo = AppDataSource.getRepository(User);
 
   const userRepoResult: User | null = await userRepo.findOneBy({
     email: payload.email,

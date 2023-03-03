@@ -1,13 +1,14 @@
 import { Request, Response } from "express";
-import {
-  tUserSchemaCreate,
-  tUserSchemaCreateResult,
-  tUserSchemaRetriveResult,
-} from "../../schemas/users.schema";
 import { createUsersServices } from "../../services/users/createUsers.service";
 import { retrieveUsersService } from "../../services/users/retrieveUsers.service";
 import { updateUserService } from "../../services/users/updateUsers.service";
-import { iUserUpdateBody, iUserUpdateInfo } from "../../interfaces/users.types";
+import {
+  iUserUpdateBody,
+  iUserUpdateInfo,
+  tUserSchemaCreate,
+  tUserSchemaCreateResult,
+  tUserSchemaRetriveResult,
+} from "../../interfaces/users.types";
 import { deletedUserService } from "../../services/users/deletedUsers.service";
 
 export const createUserController = async (

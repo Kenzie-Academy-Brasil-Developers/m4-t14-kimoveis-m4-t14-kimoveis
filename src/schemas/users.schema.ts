@@ -11,22 +11,6 @@ export const usersSchema = z.object({
   deletedAt: z.string().nullable(),
 });
 
-export type tUserSchema = z.infer<typeof usersSchema>;
-
-export type tUserSchemaCreate = Omit<
-  tUserSchema,
-  "id" | "createdAt" | "updatedAt" | "deletedAt"
->;
-
-export type tUserSchemaCreateResult = Omit<tUserSchema, "password">;
-
-export type tUserSchemaRetriveResult = Array<tUserSchemaCreateResult>;
-
-export type tUserSchemaUpdate = Omit<
-  tUserSchema,
-  "id" | "admin" | "createdAt" | "deletedAt" | "updatedAt"
->;
-
 export const usersCreateSchema = usersSchema.omit({
   id: true,
   createdAt: true,

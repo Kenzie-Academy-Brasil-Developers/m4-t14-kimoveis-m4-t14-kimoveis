@@ -1,16 +1,15 @@
+import { usersCreateResult } from "../../schemas/users.schema";
+import { AppDataSource } from "../../data-source";
+import { User } from "../../entities";
 import {
   tUserSchemaCreate,
   tUserSchemaCreateResult,
-  usersCreateResult,
-} from "../../schemas/users.schema";
-import { AppDataSource } from "../../data-source";
-import { User } from "../../entities";
-import { Repository } from "typeorm";
+} from "../../interfaces/users.types";
 
 export const createUsersServices = async (
   payload: tUserSchemaCreate
 ): Promise<tUserSchemaCreateResult> => {
-  const userRepo: Repository<User> = AppDataSource.getRepository(User);
+  const userRepo = AppDataSource.getRepository(User);
   const user: User = userRepo.create(payload as User);
 
   await userRepo.save(user);
